@@ -80,7 +80,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
             carrotDown = new Carrot_down[5];
             cd.setX(getWidth());
             cu.setX(getWidth());
-            cd.setY((int)(Math.random()*-1*cd.getAlto())+100);
+            cd.setY((int)(Math.random()*-1*cd.getAlto()));
             cu.setY(cd.getY()+cd.getAlto()+gap);
             setBackground(Color.white);
             addMouseListener(this);
@@ -172,6 +172,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
         public void checaColision() {
             if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
                 gameover = true;
+                init();
             }
         }
         
