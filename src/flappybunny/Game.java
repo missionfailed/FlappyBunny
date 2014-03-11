@@ -37,7 +37,13 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private boolean pausa;
     private boolean start;
     private boolean click;
+    private boolean gameover;
+    private int gap;        // gap entre carrots
     private Bunny ponejito;     // Objeto de la clase bunny
+    private Carrot_up cu;
+    private Carrot_down cd;
+    private Carrot_up []carrotUp;
+    private Carrot_down []carrotDown;
     private Image background;   // Imagen de background
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
@@ -56,13 +62,24 @@ public class Game extends JFrame implements Runnable, MouseListener {
             pausa = false;
             start = false;
             click = false;
+            gameover = false;
+            gap = 150;
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/background.png"));
+            // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
-            int x = getWidth() + ponejito.getAncho()/2;
-            int y = getHeight() + ponejito.getAlto()/2;
+            int x = getWidth()/2;
+            int y = getHeight()/2 + ponejito.getAlto()/2;
             ponejito.setX(x);
             ponejito.setY(y);
-            
+            // Inicializar los tubos
+            cu = new Carrot_up(0, 0);
+            cd = new Carrot_down(0, 0);
+            carrotUp = new Carrot_up[5];
+            carrotDown = new Carrot_down[5];
+            cd.setX(getWidth());
+            cu.setX(getWidth());
+            cd.setY((int)(Math.random()*-1*cd.getAlto())+100);
+            cu.setY(cd.getY()+cd.getAlto()+gap);
             setBackground(Color.white);
             addMouseListener(this);
         }
@@ -133,11 +150,15 @@ public class Game extends JFrame implements Runnable, MouseListener {
         public void actualiza() {
             //Determina el tiempo que ha transcurrido desde que el Applet inicio su ejecución
             long tiempoTranscurrido = System.currentTimeMillis() - tiempoActual;
-            
             //Guarda el tiempo actual
             tiempoActual += tiempoTranscurrido;
             
-            //ponejito.update(click);
+            //actualiza movimiento del ponejito
+            ponejito.update(click);
+            
+            //actualiza movimiento de los carrots
+            cu.update();
+            cd.update();
         }
         
         /**
@@ -174,10 +195,12 @@ public class Game extends JFrame implements Runnable, MouseListener {
                 g.drawImage(dbImage, 0, 0, this);
         }
         
-        public void paint1 (Graphics g){
+        public void paint1 (Graphics g) {
             g.drawImage(background, 0, 0, this);
-            if (ponejito!=null) {
+            if (ponejito!=null && cd!=null && cu!=null) {
                 g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
+                g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
+                g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
             } else {
                 //Da un mensaje mientras se carga el dibujo	
                 g.drawString("No se cargo la imagen..",20,20);
@@ -191,7 +214,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
 	 * e es el evento generado al hacer click con el mouse.
 	 */
         public void mouseClicked(MouseEvent e) {
-            click = true;
+           
         }
 
         /**
@@ -201,7 +224,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
 	 * e es el evento generado al presionar un botÃ³n del mouse sobre algun componente.
 	 */
         public void mousePressed(MouseEvent e) {
-
+             click = true;
         }
 
         /**

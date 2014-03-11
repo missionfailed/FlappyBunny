@@ -6,6 +6,8 @@
 
 package flappybunny;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Tate
@@ -19,6 +21,7 @@ public class FlappyBunny {
         // TODO code application logic here
         Game game = new Game();
         game.setVisible(true);
+        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }
