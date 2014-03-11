@@ -21,7 +21,7 @@ public class Carrot_up extends Base{
         Image carrot = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/tube_up.png"));
         anim = new Animacion();
         anim.sumaCuadro(carrot, 100);
-        velX = 12;
+        velX = 5;
     }
     
     public void update() {

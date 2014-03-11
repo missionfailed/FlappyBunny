@@ -69,7 +69,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/background.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
-            int x = getWidth()/2;
+            int x = getWidth()/4;
             int y = getHeight()/2 + ponejito.getAlto()/2;
             ponejito.setX(x);
             ponejito.setY(y);
@@ -137,7 +137,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
                 repaint();    // Se actualiza el <code>Applet</code> repintando el contenido.
                 try	{
                         // El thread se duerme.
-                        Thread.sleep (200);
+                        Thread.sleep (30);
                 }
                 catch (InterruptedException ex)	{
                         System.out.println("Error en " + ex.toString());
