@@ -39,6 +39,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private boolean click;
     private boolean gameover;
     private int gap;        // gap entre carrots
+    private int score;
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;
     private Carrot_down cd;
@@ -63,7 +64,8 @@ public class Game extends JFrame implements Runnable, MouseListener {
             start = false;
             click = false;
             gameover = false;
-            gap = 150;
+            score = 0;
+            gap = 300;
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/background.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
@@ -168,7 +170,9 @@ public class Game extends JFrame implements Runnable, MouseListener {
         * la  colision del bueno con los extremos del applet
         */
         public void checaColision() {
-            
+            if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
+                gameover = true;
+            }
         }
         
         /**
