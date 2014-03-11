@@ -8,6 +8,7 @@ package flappybunny;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +16,9 @@ import javax.swing.ImageIcon;
  * @author Ovidio
  */
 public class Base {
-    int x;
-    int y;
+    private ArrayList cuadros;
+    private int x;
+    private int y;
     protected Animacion anim;
     
     public Base (int x, int y) {

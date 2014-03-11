@@ -17,6 +17,8 @@ public class FlappyBunny {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Game game = new Game();
+        game.setVisible(true);
     }
     
 }

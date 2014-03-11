@@ -22,14 +22,18 @@ public class Bunny extends Base {
             
     /**
     * Metodo constructor que hereda los atributos de la clase <code>Base</code>.
-    * @param x es la <code>posiscion en x</code> del objeto Bueno.
-    * @param y es el <code>posiscion en y</code> del objeto Bueno.
-    * @param image es la <code>imagen</code> del objeto Bueno.
+    * @param x es la <code>posiscion en x</code> del objeto Bunny.
+    * @param y es el <code>posiscion en y</code> del objeto Bunny.
+    * @param image es la <code>imagen</code> del objeto Bunny.
     */
     public Bunny(int x,int y){
         super(x,y);
         yvel = 0;
         gravedad = 0.5;
+        
+        Image bunny = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/bird.png"));
+        anim = new Animacion();
+        anim.sumaCuadro(bunny, 100);
     }
     
     public void update(boolean click) {
@@ -42,8 +46,8 @@ public class Bunny extends Base {
             yvel = -10;
             jumpDelay = 10;
         }
-
-        y += (int)yvel;
+        
+        setY(getY() + (int)yvel);
     }
     
     public void setYVel(double yvel) {
