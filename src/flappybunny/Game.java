@@ -49,6 +49,8 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;       //Objeto que representa obstaculo arriba
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
+    private LinkedList carrotDown;
+    private LinkedList carrotUp;
     private Image background1;   // Imagen de background
     private Image background2;   // Imagen de background
     private Image background3;   // Imagen de background
@@ -110,6 +112,26 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             cu.setX(getWidth());
             cd.setY((int)(Math.random()*((-1*cd.getAlto())+80))-80);
             cu.setY(cd.getY()+cd.getAlto()+gap);
+            carrotUp = new LinkedList();
+            carrotDown = new LinkedList();
+            carrotUp.add(cu);
+            carrotDown.add(cd);
+            
+            for (int i = 1; i < 10; i++) {
+                cu = new Carrot_up(0, 0);
+                cd = new Carrot_down(0, 0);
+                
+                cu.setX(((Carrot_up)carrotUp.get(i-1)).getX() + ((Carrot_up)carrotUp.get(i-1)).getAncho() + espacio);
+                cd.setX(((Carrot_down)carrotDown.get(i-1)).getX() + ((Carrot_down)carrotDown.get(i-1)).getAncho() + espacio);
+                cd.setY((int)(Math.random()*((-1*cd.getAlto())+80))-80);
+                cu.setY(cd.getY()+cd.getAlto()+gap);
+                
+                carrotUp.add(cu);
+                carrotDown.add(cd);
+            }
+            
+            
+            
             setBackground(Color.white);
             addMouseListener(this);
             addKeyListener(this);
@@ -190,8 +212,14 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 //ponejito.update2(click);
 
                 //actualiza movimiento de los carrots
-                cu.update();
-                cd.update();
+                for (int i = 0; i < carrotUp.size(); i++) {
+                    ((Carrot_up)(carrotUp.get(i))).update();
+                    ((Carrot_down)(carrotDown.get(i))).update();
+                }
+
+
+                //cu.update();
+                //cd.update();
                 
                 //dependiendo del score aumenta la dificultad
                 if (score < 20) {
@@ -218,27 +246,35 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
         */
         public void checaColision() {
             //colision del ponejito
-            if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
-                fondo.stop();
-                gameover = true;
-                highscore = (score > highscore)? score:highscore;
-                try {
-                    grabaArchivo();
-                } catch (IOException ex) {
-                    System.out.println("Error en " + ex.toString());
+            for (int i = 0; i < carrotUp.size(); i++) {
+                cu = ((Carrot_up)carrotUp.get(i));
+                cd = ((Carrot_down)carrotDown.get(i));
+                if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
+                    fondo.stop();
+                    gameover = true;
+                    highscore = (score > highscore)? score:highscore;
+                    try {
+                        grabaArchivo();
+                    } catch (IOException ex) {
+                        System.out.println("Error en " + ex.toString());
+                    }
                 }
-            }
-            if(ponejito.getY()<=0)
-                ponejito.setY(0);
-            
-            //colision de los carrots
-            if (cu.getX()+cu.getAncho() < 0 && cd.getX()+cd.getAncho() < 0) {
-                punto.play();
-                score += 1;
-                cd.setX(getWidth());
-                cu.setX(getWidth());
-                cd.setY((int)(Math.random()*((-1*cd.getAlto())+80))-80);
-                cu.setY(cd.getY()+cd.getAlto()+gap);
+                if(ponejito.getY()<=0)
+                    ponejito.setY(0);
+
+                //colision de los carrots
+                if (cu.getX()+cu.getAncho() < 0 && cd.getX()+cd.getAncho() < 0) {
+                    carrotUp.removeFirst();
+                    carrotDown.removeFirst();
+                    punto.play();
+                    score += 1;
+                    cd.setX(((Carrot_down)carrotDown.get(carrotDown.size()-1)).getX() + ((Carrot_down)carrotDown.get(carrotDown.size()-1)).getAncho() + espacio);
+                    cu.setX(((Carrot_up)carrotUp.get(carrotUp.size()-1)).getX() + ((Carrot_up)carrotUp.get(carrotUp.size()-1)).getAncho() + espacio);
+                    cd.setY((int)(Math.random()*((-1*cd.getAlto())+80))-80);
+                    cu.setY(cd.getY()+cd.getAlto()+gap);
+                    carrotUp.add(cu);
+                    carrotDown.add(cd);
+                }
             }
         }
         
@@ -276,10 +312,14 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                     g.drawImage(background2, 0, 0, this);
                 if (nivel3)
                     g.drawImage(background3, 0, 0, this);
-                if (ponejito!=null && cd!=null && cu!=null) {
+                if (ponejito!=null && !carrotUp.isEmpty() && !carrotDown.isEmpty()) {
+                    for (int i = 0; i < carrotUp.size(); i++) {
+                        cu = ((Carrot_up)carrotUp.get(i));
+                        cd = ((Carrot_down)carrotDown.get(i));
+                        g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
+                        g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
+                    }
                     g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
-                    g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
-                    g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
                     g.drawString(Integer.toString(score), getWidth()/2, 60);
                 } else {
                     //Da un mensaje mientras se carga el dibujo	
