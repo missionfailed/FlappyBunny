@@ -43,8 +43,8 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;       //Objeto que representa obstaculo arriba
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
-    private Carrot_up []carrotUp;
-    private Carrot_down []carrotDown;
+    private LinkedList carrotUp;
+    private LinkedList carrotDown;
     private Image background;   // Imagen de background
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
@@ -59,14 +59,14 @@ public class Game extends JFrame implements Runnable, MouseListener {
     }
         
         public void init() {
-            setSize(500, 500);
+            setSize(600, 800);
             pausa = false;
             start = false;
             click = false;
             gameover = false;
             score = 0;
             gap = 300;
-            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/background.png"));
+            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
             int x = getWidth()/4;
@@ -74,14 +74,19 @@ public class Game extends JFrame implements Runnable, MouseListener {
             ponejito.setX(x);
             ponejito.setY(y);
             // Inicializar los tubos
+            carrotUp = new LinkedList();
+            carrotDown = new LinkedList();
             cu = new Carrot_up(0, 0);
             cd = new Carrot_down(0, 0);
-            carrotUp = new Carrot_up[5];
-            carrotDown = new Carrot_down[5];
-            cd.setX(getWidth());
-            cu.setX(getWidth());
-            cd.setY((int)(Math.random()*-1*cd.getAlto()));
-            cu.setY(cd.getY()+cd.getAlto()+gap);
+            for (int i = 0; i < 5; i++) {
+                cd.setX(getWidth());
+                cu.setX(getWidth());
+                cd.setY((int)(Math.random()*-1*cd.getAlto()));
+                cu.setY(cd.getY()+cd.getAlto()+gap);
+                carrotUp.add(cu);
+                carrotDown.add(cd);
+            }
+            
             setBackground(Color.white);
             addMouseListener(this);
         }
