@@ -272,6 +272,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 }
             } else {
                 g.drawImage(end, 0, 0, this);
+                g.drawString(Integer.toString(score), getWidth()/3+60, 280);
             }
         }
         
