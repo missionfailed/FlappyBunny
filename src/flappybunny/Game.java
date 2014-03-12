@@ -10,7 +10,7 @@ package flappybunny;
  *
  * @author Ovidio Villarreal && Graciela Garcia
  */
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.Image;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -58,6 +58,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private Graphics dbg;	// Objeto grafico
     private SoundClip punto;    // Objeto SoundClip
     private SoundClip fondo;    // Objeto SoundClip
+    private Font tr;
     
     //Variables control de tiempo de animacion
     private long tiempoActual;
@@ -86,6 +87,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             espacio = 400;
             gap = 500;
             // Obtener sonidos e imagenes
+            tr = new Font("TimesRoman", Font.PLAIN, 40);
             punto = new SoundClip ("/sounds/twink.wav");
             fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
             background1 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
@@ -288,6 +290,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 }
             } else {
                 g.drawImage(end, 0, 0, this);
+                g.setFont(tr); 
                 g.drawString(Integer.toString(score), getWidth()/3+60, 280);
             }
         }
