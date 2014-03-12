@@ -167,6 +167,14 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 //actualiza movimiento de los carrots
                 cu.update();
                 cd.update();
+                
+                if (score < 20) {
+                    gap = 500;
+                } else if (score < 50) {
+                    gap = 400;
+                } else {
+                    gap = 300;
+                }
             }
         }
         
