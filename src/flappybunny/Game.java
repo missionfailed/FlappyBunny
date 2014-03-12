@@ -98,7 +98,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             cd = new Carrot_down(0, 0);
             cd.setX(getWidth());
             cu.setX(getWidth());
-            cd.setY((int)(Math.random()*-1*cd.getAlto())-50);
+            cd.setY((int)(Math.random()*((-1*cd.getAlto())+50))-50);
             cu.setY(cd.getY()+cd.getAlto()+gap);
             setBackground(Color.white);
             addMouseListener(this);
