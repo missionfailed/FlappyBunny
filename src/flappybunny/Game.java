@@ -44,6 +44,8 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private int espacio;        // espacio entre carrots
     private int gap;            // gap por donde pasa el bunny
     private int score;          //variable que representa el puntaje
+    private int highscore;
+    private String []arr;
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;       //Objeto que representa obstaculo arriba
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
@@ -68,6 +70,11 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
         
         public void init() {
             setSize(600, 800);
+            try {
+                leeArchivo();
+            } catch (IOException ex) {
+                System.out.println("Error en " + ex.toString());
+            }
             pausa = true;
             start = false;
             click = false;
@@ -213,6 +220,12 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
                 fondo.stop();
                 gameover = true;
+                highscore = (score > highscore)? score:highscore;
+                try {
+                    grabaArchivo();
+                } catch (IOException ex) {
+                    System.out.println("Error en " + ex.toString());
+                }
             }
             if(ponejito.getY()<=0)
                 ponejito.setY(0);
@@ -344,23 +357,56 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
 		if (e.getKeyCode() == KeyEvent.VK_P) {    //Presiono flecha arriba
 		    pausa = !pausa;
 		} 
-    }
+        }   
     
-    /**
+         /**
 	 * Metodo <I>keyTyped</I> sobrescrito de la interface <code>KeyListener</code>.<P>
 	 * En este metodo maneja el evento que se genera al presionar una tecla que no es de accion.
 	 * @param e es el <code>evento</code> que se genera en al presionar las teclas.
 	 */
-    public void keyTyped(KeyEvent e){
-    	
-    }
+        public void keyTyped(KeyEvent e){
+
+        }
     
-    /**
+        /**
 	 * Metodo <I>keyReleased</I> sobrescrito de la interface <code>KeyListener</code>.<P>
 	 * En este metodo maneja el evento que se genera al soltar la tecla presionada.
 	 * @param e es el <code>evento</code> que se genera en al soltar las teclas.
 	 */
-    public void keyReleased(KeyEvent e){
-    	
-    }
+        public void keyReleased(KeyEvent e){
+
+        }
+    
+        /**
+        * Metodo que lee a informacion de un archivo y lo agrega a un vector.
+        *
+        * @throws IOException
+        */
+        public void leeArchivo() throws IOException {
+                                                          
+                BufferedReader fileIn;
+                try {
+                        fileIn = new BufferedReader(new FileReader("highscore.txt"));
+                } catch (FileNotFoundException e){
+                        File data = new File("highscore.txt");
+                        PrintWriter fileOut = new PrintWriter(data);
+                        fileOut.println(""+0);
+                        fileOut.close();
+                        fileIn = new BufferedReader(new FileReader("highscore.txt"));
+                }
+                String dato = fileIn.readLine();
+                highscore = Integer.parseInt(dato);
+                fileIn.close();
+        }
+        /**
+        * Metodo que agrega la informacion del vector al archivo.
+        *
+        * @throws IOException
+        */
+        public void grabaArchivo() throws IOException {
+                                                          
+                PrintWriter fileOut = new PrintWriter(new FileWriter("highscore.txt"));
+                fileOut.println(""+highscore);
+                fileOut.close();
+        }
 }
