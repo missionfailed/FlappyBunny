@@ -37,9 +37,9 @@ public class Bunny extends Base {
     }
     
     /**
-     * Metodo que modifica la posicion en y del objeto
-     * @param click es si <code>se dio click</code> al applet
-     */
+    * Metodo que modifica la posicion en y del objeto
+    * @param click es si <code>se dio click</code> al applet
+    */
     public void update(boolean click) {
         yvel += gravedad;
 
@@ -49,6 +49,24 @@ public class Bunny extends Base {
         if (click && jumpDelay <= 0) {
             yvel = -10;
             jumpDelay = 10;
+        }
+        
+        setY(getY() + (int)yvel);
+    }
+    
+    /**
+    * Metodo que modifica la posicion en y del objeto
+    * @param click es si <code>se dio click</code> al applet
+    */
+    public void update2(boolean click) {
+        yvel -= gravedad;
+
+        if (jumpDelay > 0)
+            jumpDelay--;
+
+        if (click && jumpDelay <= 0) {
+            yvel = 10;
+            jumpDelay = -10;
         }
         
         setY(getY() + (int)yvel);

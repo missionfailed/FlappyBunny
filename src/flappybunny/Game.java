@@ -185,6 +185,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             if (start && !pausa && !gameover) {
                 //actualiza movimiento del ponejito
                 ponejito.update(click);
+                //ponejito.update2(click);
 
                 //actualiza movimiento de los carrots
                 cu.update();
