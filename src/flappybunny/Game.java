@@ -191,6 +191,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 cu.update();
                 cd.update();
                 
+                //dependiendo del score aumenta la dificultad
                 if (score < 20) {
                     gap = 500;
                     nivel1 = true;
