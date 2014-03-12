@@ -31,7 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-public class Game extends JFrame implements Runnable, MouseListener {
+public class Game extends JFrame implements Runnable, MouseListener, KeyListener {
     private static final long serialVersionUID = 1L;
     //variables
     private boolean pausa;
@@ -60,7 +60,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
         
         public void init() {
             setSize(600, 800);
-            pausa = false;
+            pausa = true;
             start = false;
             click = false;
             gameover = false;
@@ -68,6 +68,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
             espacio = 400;
             gap = 300;
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
+            home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
             int x = 10;
@@ -83,6 +84,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
             cu.setY(cd.getY()+cd.getAlto()+gap);
             setBackground(Color.white);
             addMouseListener(this);
+            addKeyListener(this);
         }
     
         /** 
@@ -154,12 +156,14 @@ public class Game extends JFrame implements Runnable, MouseListener {
             //Guarda el tiempo actual
             tiempoActual += tiempoTranscurrido;
             
-            //actualiza movimiento del ponejito
-            ponejito.update(click);
-            
-            //actualiza movimiento de los carrots
-            cu.update();
-            cd.update();
+            if (start && !pausa) {
+                //actualiza movimiento del ponejito
+                ponejito.update(click);
+
+                //actualiza movimiento de los carrots
+                cu.update();
+                cd.update();
+            }
         }
         
         /**
@@ -212,14 +216,18 @@ public class Game extends JFrame implements Runnable, MouseListener {
         }
         
         public void paint1 (Graphics g) {
-            g.drawImage(background, 0, 0, this);
-            if (ponejito!=null && cd!=null && cu!=null) {
-                g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
-                g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
-                g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
+            if (!start) {
+                g.drawImage(home, 0, 0, this);
             } else {
-                //Da un mensaje mientras se carga el dibujo	
-                g.drawString("No se cargo la imagen..",20,20);
+                g.drawImage(background, 0, 0, this);
+                if (ponejito!=null && cd!=null && cu!=null) {
+                    g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
+                    g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
+                    g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
+                } else {
+                    //Da un mensaje mientras se carga el dibujo	
+                    g.drawString("No se cargo la imagen..",20,20);
+                }
             }
         }
         
@@ -241,6 +249,10 @@ public class Game extends JFrame implements Runnable, MouseListener {
 	 */
         public void mousePressed(MouseEvent e) {
              click = true;
+             if (!start) {
+                 start = true;
+                 pausa = false;
+             }
         }
 
         /**
@@ -272,4 +284,33 @@ public class Game extends JFrame implements Runnable, MouseListener {
         public void mouseExited(MouseEvent e) {
 
         }
+        
+        /**
+	 * Metodo <I>keyPressed</I> sobrescrito de la interface <code>KeyListener</code>.<P>
+	 * En este metodo maneja el evento que se genera al presionar cualquier la tecla.
+	 * @param e es el <code>evento</code> generado al presionar las teclas.
+	 */
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_P) {    //Presiono flecha arriba
+		    pausa = !pausa;
+		} 
+    }
+    
+    /**
+	 * Metodo <I>keyTyped</I> sobrescrito de la interface <code>KeyListener</code>.<P>
+	 * En este metodo maneja el evento que se genera al presionar una tecla que no es de accion.
+	 * @param e es el <code>evento</code> que se genera en al presionar las teclas.
+	 */
+    public void keyTyped(KeyEvent e){
+    	
+    }
+    
+    /**
+	 * Metodo <I>keyReleased</I> sobrescrito de la interface <code>KeyListener</code>.<P>
+	 * En este metodo maneja el evento que se genera al soltar la tecla presionada.
+	 * @param e es el <code>evento</code> que se genera en al soltar las teclas.
+	 */
+    public void keyReleased(KeyEvent e){
+    	
+    }
 }
