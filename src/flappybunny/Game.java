@@ -223,7 +223,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 score += 1;
                 cd.setX(getWidth());
                 cu.setX(getWidth());
-                cd.setY((int)(Math.random()*-1*cd.getAlto())-50);
+                cd.setY((int)(Math.random()*((-1*cd.getAlto())+80))-80);
                 cu.setY(cd.getY()+cd.getAlto()+gap);
             }
         }
