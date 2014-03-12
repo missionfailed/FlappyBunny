@@ -38,13 +38,18 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private boolean start;
     private boolean click;
     private boolean gameover;
+    private boolean nivel1;
+    private boolean nivel2;
+    private boolean nivel3;
     private int espacio;        // espacio entre carrots
     private int gap;            // gap por donde pasa el bunny
     private int score;          //variable que representa el puntaje
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;       //Objeto que representa obstaculo arriba
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
-    private Image background;   // Imagen de background
+    private Image background1;   // Imagen de background
+    private Image background2;   // Imagen de background
+    private Image background3;   // Imagen de background
     private Image home;         // Imagen de inicio
     private Image end;          // Imagen de gameover
     private Image dbImage;	// Imagen a proyectar
@@ -67,12 +72,17 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             start = false;
             click = false;
             gameover = false;
+            nivel1 = true;
+            nivel2 = false;
+            nivel3 = false;
             score = 0;
             espacio = 400;
             gap = 500;
             punto = new SoundClip ("/sounds/twink.wav");
             fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
-            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
+            background1 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
+            background2 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main2.gif"));
+            background3 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main3.gif"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
             fondo.setLooping(true);
@@ -174,10 +184,19 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 
                 if (score < 20) {
                     gap = 500;
+                    nivel1 = true;
+                    nivel2 = false;
+                    nivel3 = false;
                 } else if (score < 50) {
                     gap = 400;
+                    nivel1 = false;
+                    nivel2 = true;
+                    nivel3 = false;
                 } else {
                     gap = 300;
+                    nivel1 = false;
+                    nivel2 = false;
+                    nivel3 = true;
                 }
             }
         }
@@ -236,7 +255,12 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             if (!start) {
                 g.drawImage(home, 0, 0, this);
             } else if (!gameover) {
-                g.drawImage(background, 0, 0, this);
+                if (nivel1)
+                    g.drawImage(background1, 0, 0, this);
+                if (nivel2)
+                    g.drawImage(background2, 0, 0, this);
+                if (nivel3)
+                    g.drawImage(background3, 0, 0, this);
                 if (ponejito!=null && cd!=null && cu!=null) {
                     g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
                     g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
