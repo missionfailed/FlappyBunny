@@ -46,6 +46,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
     private Image background;   // Imagen de background
     private Image home;         // Imagen de inicio
+    private Image end;          // Imagen de gameover
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
     
@@ -66,9 +67,10 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             gameover = false;
             score = 0;
             espacio = 400;
-            gap = 300;
+            gap = 500;
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
+            end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
             int x = 10;
@@ -156,7 +158,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             //Guarda el tiempo actual
             tiempoActual += tiempoTranscurrido;
             
-            if (start && !pausa) {
+            if (start && !pausa && !gameover) {
                 //actualiza movimiento del ponejito
                 ponejito.update(click);
 
@@ -176,7 +178,6 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             //colision del ponejito
             if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
                 gameover = true;
-                init();
             }
             if(ponejito.getY()<=0)
                 ponejito.setY(0);
@@ -218,16 +219,19 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
         public void paint1 (Graphics g) {
             if (!start) {
                 g.drawImage(home, 0, 0, this);
-            } else {
+            } else if (!gameover) {
                 g.drawImage(background, 0, 0, this);
                 if (ponejito!=null && cd!=null && cu!=null) {
                     g.drawImage(ponejito.getImagenI(), ponejito.getX(), ponejito.getY(), this);
                     g.drawImage(cd.getImagenI(), cd.getX(), cd.getY(), this);
                     g.drawImage(cu.getImagenI(), cu.getX(), cu.getY(), this);
+                    g.drawString(Integer.toString(score), getWidth()/2, 60);
                 } else {
                     //Da un mensaje mientras se carga el dibujo	
                     g.drawString("No se cargo la imagen..",20,20);
                 }
+            } else {
+                g.drawImage(end, 0, 0, this);
             }
         }
         
@@ -252,6 +256,10 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
              if (!start) {
                  start = true;
                  pausa = false;
+             }
+             
+             if (gameover) {
+                 init();
              }
         }
 
