@@ -29,7 +29,8 @@ public class Bunny extends Base {
     public Bunny(int x,int y){
         super(x,y);
         yvel = 0;
-        gravedad = 0.5;
+        //gravedad = 0.5;
+        gravedad = 0.6;
         
         Image bunny = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_FlyingBunny.gif"));
         anim = new Animacion();

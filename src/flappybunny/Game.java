@@ -84,7 +84,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             nivel3 = false;
             score = 0;
             espacio = 400;
-            gap = 500;
+            gap = 450;
             // Obtener sonidos e imagenes
             punto = new SoundClip ("/sounds/twink.wav");
             fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
@@ -193,17 +193,17 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
                 
                 //dependiendo del score aumenta la dificultad
                 if (score < 20) {
-                    gap = 500;
+                    gap = 450;
                     nivel1 = true;
                     nivel2 = false;
                     nivel3 = false;
                 } else if (score < 50) {
-                    gap = 400;
+                    gap = 350;
                     nivel1 = false;
                     nivel2 = true;
                     nivel3 = false;
                 } else {
-                    gap = 300;
+                    gap = 250;
                     nivel1 = false;
                     nivel2 = false;
                     nivel3 = true;
