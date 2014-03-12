@@ -38,14 +38,14 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private boolean start;
     private boolean click;
     private boolean gameover;
-    private int gap;            // gap entre carrots
+    private int espacio;        // espacio entre carrots
+    private int gap;            // gap por donde pasa el bunny
     private int score;          //variable que representa el puntaje
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;       //Objeto que representa obstaculo arriba
     private Carrot_down cd;     //Objeto que representa obstaculo abajo
-    private LinkedList carrotUp;
-    private LinkedList carrotDown;
     private Image background;   // Imagen de background
+    private Image home;         // Imagen de inicio
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
     
@@ -65,28 +65,22 @@ public class Game extends JFrame implements Runnable, MouseListener {
             click = false;
             gameover = false;
             score = 0;
+            espacio = 400;
             gap = 300;
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
-            int x = getWidth()/4;
+            int x = 10;
             int y = getHeight()/2 + ponejito.getAlto()/2;
             ponejito.setX(x);
             ponejito.setY(y);
-            // Inicializar los tubos
-            carrotUp = new LinkedList();
-            carrotDown = new LinkedList();
+            // Inicializar los carrots
             cu = new Carrot_up(0, 0);
             cd = new Carrot_down(0, 0);
-            for (int i = 0; i < 5; i++) {
-                cd.setX(getWidth());
-                cu.setX(getWidth());
-                cd.setY((int)(Math.random()*-1*cd.getAlto()));
-                cu.setY(cd.getY()+cd.getAlto()+gap);
-                carrotUp.add(cu);
-                carrotDown.add(cd);
-            }
-            
+            cd.setX(getWidth());
+            cu.setX(getWidth());
+            cd.setY((int)(Math.random()*-1*cd.getAlto())-50);
+            cu.setY(cd.getY()+cd.getAlto()+gap);
             setBackground(Color.white);
             addMouseListener(this);
         }
@@ -175,12 +169,22 @@ public class Game extends JFrame implements Runnable, MouseListener {
         * la  colision del bueno con los extremos del applet
         */
         public void checaColision() {
+            //colision del ponejito
             if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
                 gameover = true;
                 init();
             }
             if(ponejito.getY()<=0)
                 ponejito.setY(0);
+            
+            //colision de los carrots
+            if (cu.getX()+cu.getAncho() < 0 && cd.getX()+cd.getAncho() < 0) {
+                score += 1;
+                cd.setX(getWidth());
+                cu.setX(getWidth());
+                cd.setY((int)(Math.random()*-1*cd.getAlto())-50);
+                cu.setY(cd.getY()+cd.getAlto()+gap);
+            }
         }
         
         /**
