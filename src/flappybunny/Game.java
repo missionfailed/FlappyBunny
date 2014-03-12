@@ -39,10 +39,10 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private boolean click;
     private boolean gameover;
     private int gap;            // gap entre carrots
-    private int score;
+    private int score;          //variable que representa el puntaje
     private Bunny ponejito;     // Objeto de la clase bunny
-    private Carrot_up cu;
-    private Carrot_down cd;
+    private Carrot_up cu;       //Objeto que representa obstaculo arriba
+    private Carrot_down cd;     //Objeto que representa obstaculo abajo
     private Carrot_up []carrotUp;
     private Carrot_down []carrotDown;
     private Image background;   // Imagen de background
