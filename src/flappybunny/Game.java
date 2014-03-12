@@ -70,7 +70,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             espacio = 400;
             gap = 500;
             punto = new SoundClip ("/sounds/twink.wav");
-            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
+            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_MainBACK.gif"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
             // Inicializar Ponejito
