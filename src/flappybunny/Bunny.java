@@ -31,7 +31,7 @@ public class Bunny extends Base {
         yvel = 0;
         gravedad = 0.5;
         
-        Image bunny = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/bird.png"));
+        Image bunny = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_FlyingBunny.gif"));
         anim = new Animacion();
         anim.sumaCuadro(bunny, 100);
     }

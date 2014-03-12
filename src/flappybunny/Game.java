@@ -38,7 +38,7 @@ public class Game extends JFrame implements Runnable, MouseListener {
     private boolean start;
     private boolean click;
     private boolean gameover;
-    private int gap;        // gap entre carrots
+    private int gap;            // gap entre carrots
     private int score;
     private Bunny ponejito;     // Objeto de la clase bunny
     private Carrot_up cu;
@@ -174,6 +174,8 @@ public class Game extends JFrame implements Runnable, MouseListener {
                 gameover = true;
                 init();
             }
+            if(ponejito.getY()<=0)
+                ponejito.setY(0);
         }
         
         /**
