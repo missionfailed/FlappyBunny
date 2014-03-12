@@ -50,6 +50,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
     private SoundClip punto;    // Objeto SoundClip
+    private SoundClip fondo;    // Objeto SoundClip
     
     //Variables control de tiempo de animacion
     private long tiempoActual;
@@ -70,9 +71,12 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             espacio = 400;
             gap = 500;
             punto = new SoundClip ("/sounds/twink.wav");
+            fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_MainBACK.gif"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
+            fondo.setLooping(true);
+            fondo.play();
             // Inicializar Ponejito
             ponejito = new Bunny(0, 0);
             int x = 10;
@@ -187,6 +191,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
         public void checaColision() {
             //colision del ponejito
             if(ponejito.intersecta(cu) || ponejito.intersecta(cd) || ponejito.getAlto()+ponejito.getY() > getHeight()) {
+                fondo.stop();
                 gameover = true;
             }
             if(ponejito.getY()<=0)
