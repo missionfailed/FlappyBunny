@@ -49,6 +49,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
     private Image end;          // Imagen de gameover
     private Image dbImage;	// Imagen a proyectar
     private Graphics dbg;	// Objeto grafico
+    private SoundClip punto;    // Objeto SoundClip
     
     //Variables control de tiempo de animacion
     private long tiempoActual;
@@ -68,6 +69,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             score = 0;
             espacio = 400;
             gap = 500;
+            punto = new SoundClip ("/sounds/twink.wav");
             background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
@@ -184,6 +186,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             
             //colision de los carrots
             if (cu.getX()+cu.getAncho() < 0 && cd.getX()+cd.getAncho() < 0) {
+                punto.play();
                 score += 1;
                 cd.setX(getWidth());
                 cu.setX(getWidth());
