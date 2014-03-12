@@ -91,7 +91,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             // Obtener sonidos e imagenes
             tr = new Font("TimesRoman", Font.PLAIN, 40);
             punto = new SoundClip ("/sounds/twink.wav");
-            fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
+            fondo = new SoundClip ("/sounds/NyanNoNyan.wav");
             background1 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             background2 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main2.gif"));
             background3 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main3.gif"));
