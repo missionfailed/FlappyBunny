@@ -8,7 +8,7 @@ package flappybunny;
 
 /**
  *
- * @author Ovidio
+ * @author Ovidio Villarreal && Graciela Garcia
  */
 import java.awt.Graphics;
 import java.awt.Image;
@@ -34,13 +34,13 @@ import javax.swing.JFrame;
 public class Game extends JFrame implements Runnable, MouseListener, KeyListener {
     private static final long serialVersionUID = 1L;
     //variables
-    private boolean pausa;
-    private boolean start;
-    private boolean click;
-    private boolean gameover;
-    private boolean nivel1;
-    private boolean nivel2;
-    private boolean nivel3;
+    private boolean pausa;      // variable que checa si esta en pausa el juego
+    private boolean start;      // variable que checa si ya empezo el juego
+    private boolean click;      // variable que checa si se dio un click en el juego
+    private boolean gameover;   // variable que checa si perdio en el juego
+    private boolean nivel1;     // variable que checa si se encuentra en el nivel 1
+    private boolean nivel2;     // variable que checa si se encuentra en el nivel 2
+    private boolean nivel3;     // variable que checa si se encuentra en el nivel 3
     private int espacio;        // espacio entre carrots
     private int gap;            // gap por donde pasa el bunny
     private int score;          //variable que representa el puntaje
@@ -78,6 +78,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             score = 0;
             espacio = 400;
             gap = 500;
+            // Obtener sonidos e imagenes
             punto = new SoundClip ("/sounds/twink.wav");
             fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
             background1 = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));

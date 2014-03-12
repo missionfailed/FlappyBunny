@@ -11,7 +11,7 @@ import java.awt.Toolkit;
 
 /**
  *
- * @author Ovidio
+ * @author Ovidio Villarreal && Graciela Garcia
  */
 public class Carrot_up extends Base{
     private int velX;
@@ -24,14 +24,25 @@ public class Carrot_up extends Base{
         velX = 10;
     }
     
+    /**
+     * Metodo que modifica la posicion en x del objeto
+     */
     public void update() {
         setX(getX() - velX);
     }
     
+    /**
+    * Metodo modificador usado para cambiar la velocidad en x del objeto 
+    * @param velX es la <code>velocidad en x</code> del objeto.
+    */
     public void setVelX(int velX) {
         this.velX = velX;
     }
     
+    /**
+    * Metodo de acceso que regresa la velocidad en x del objeto 
+    * @return velX es la <code>velocidad en x</code> del objeto.
+    */
     public int getVelX() {
         return velX;
     }

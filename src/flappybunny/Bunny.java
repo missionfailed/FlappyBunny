@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author Ovidio
+ * @author Ovidio Villarreal && Graciela Garcia
  */
 public class Bunny extends Base {
     
@@ -36,6 +36,10 @@ public class Bunny extends Base {
         anim.sumaCuadro(bunny, 100);
     }
     
+    /**
+     * Metodo que modifica la posicion en y del objeto
+     * @param click es si <code>se dio click</code> al applet
+     */
     public void update(boolean click) {
         yvel += gravedad;
 
@@ -50,26 +54,50 @@ public class Bunny extends Base {
         setY(getY() + (int)yvel);
     }
     
+    /**
+    * Metodo modificador usado para cambiar la velocidad en y del objeto 
+    * @param yvel es la <code>velocidad en y</code> del objeto.
+    */
     public void setYVel(double yvel) {
         this.yvel = yvel;
     }
     
+    /**
+    * Metodo de acceso que regresa la velocidad en y del objeto 
+    * @return yvel es la <code>velocidad en y</code> del objeto.
+    */
     public double getYVel() {
         return yvel;
     }
     
+    /**
+    * Metodo modificador usado para cambiar la gravedad del objeto 
+    * @param gravedad es la <code>gravedad</code> del objeto.
+    */
     public void setGravedad(double gravedad) {
         this.gravedad = gravedad;
     }
     
+    /**
+    * Metodo de acceso que regresa la gravedad del objeto 
+    * @return gravedad es la <code>gravedad</code> del objeto.
+    */
     public double getGravedad() {
         return gravedad;
     }
     
+    /**
+    * Metodo modificador usado para cambiar el delay del objeto 
+    * @param jumpDelay es el <code>delay</code> del objeto.
+    */
     public void setDelay(int jumpDelay) {
         this.jumpDelay = jumpDelay;
     }
     
+    /**
+    * Metodo de acceso que regresa el delay del objeto 
+    * @return jumpDelay es el <code>delay</code> del objeto.
+    */
     public int getDelay() {
         return jumpDelay;
     }

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Tate
+ * @author Ovidio Villarreal && Graciela Garcia
  */
 public class FlappyBunny {
 

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Ovidio
+ * @author Ovidio Villarreal && Graciela Garcia
  */
 public class Base {
     private ArrayList cuadros;
