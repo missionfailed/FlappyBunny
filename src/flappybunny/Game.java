@@ -72,7 +72,7 @@ public class Game extends JFrame implements Runnable, MouseListener, KeyListener
             gap = 500;
             punto = new SoundClip ("/sounds/twink.wav");
             fondo = new SoundClip ("/sounds/NyanNoNyan.mp3");
-            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_MainBACK.gif"));
+            background = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_Main.png"));
             home = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_TitleScreen.png"));
             end = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/images/FlappyBunny_GameOver.png"));
             fondo.setLooping(true);
